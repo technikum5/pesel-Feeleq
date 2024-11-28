@@ -8,7 +8,44 @@
     <h1>Sprawdź PESEL</h1>
     <p id="message">Sprawdź PESEL</p>
 
-    <!-- Dołączanie pliku JavaScript -->
-    <script src="pesel.js"></script>
-</body>
+<script lang="javascript">
+
+    function pobierzPesel() {
+        pesel = prompt("Podaj numer PESEL: ");
+
+        if(isNaN(pesel)) {
+            alert("PESEL może składać się tylko z cyfr")
+            return;
+        }
+
+        if(pesel.length !== 11) {
+            alert("PESEL musi składać się  z 11 cyfr.");
+            return;
+        }
+        alert("PESEL:" + pesel)
+    }
+    
+    
+    function extractBirthDateFromPESEL(pesel) {
+        miesiace = ["styczen", "luty", "marzec", "kwiecien", "maj", "czerwiec", "lipiec", "sierpien", "wrzesien", "pazdziernik", "listopad", "grudzien"];
+        let rok = parseInt(pesel[0] + pesel[1], 10);
+        let miesiac = parseInt(pesel[2] + pesel[3], 10);
+        let dzien = pesel[4] + pesel[5];
+
+        if (miesiac > 20) {
+            rok += 2000;
+            miesiac -= 20;
+        }
+        else {
+            rok += 1900;
+        }
+        plec = parseInt(pesel[9], 10) % 2 == 0 ? "kobieta" : "mężczyzna";
+        document.write("PESEL:" + pesel + "<br>");
+        document.write(`Data urodzenia: ${dzien} ${miesiace[miesiac - 1]} ${rok}` + "<br>");
+        document.write(`Płeć: ${plec}`);
+    }
+    pobierzPesel();
+    extractBirthDateFromPESEL(pesel);
+    </script>
+    </body>
 </html>
